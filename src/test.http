@@ -1,1 +1,26 @@
+### 查询所有用户
 GET http://localhost:8080/users
+### 查询指定用户
+GET http://localhost:8080/users/1
+### 新增用户
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "id": 5,
+  "name": "小明",
+  "age": 20
+}
+### 修改用户
+PUT http://localhost:8080/users/5
+Content-Type: application/json
+
+{
+  "name": "小明修改后",
+  "age": 21
+}
+### 删除用户
+DELETE http://localhost:8080/users/5
+
+### 查询错误用户
+GET http://localhost:8080/users/999
