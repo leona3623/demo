@@ -24,3 +24,6 @@ DELETE http://localhost:8080/users/5
 
 ### 查询错误用户
 GET http://localhost:8080/users/999
+
+### 其他错误测试
+GET http://localhost:8080/test-error
