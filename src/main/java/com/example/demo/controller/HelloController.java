@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.common.Result;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,27 +18,36 @@ public class HelloController {
     }
 
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable Integer id) {
-        return userService.getUserById(id);
+    public Result getUser(@PathVariable Integer id) {
+        User user = userService.getUserById(id);
+        Result result = new Result(200,"success",user);
+        return result;
     }
     @GetMapping("/users")
-    public List<User> getUserAll() {
-        return userService.findAll();
+    public Result getUserAll() {
+        List<User> users = userService.findAll();
+        Result result = new Result(200,"success",users);
+        return result;
     }
 
     @PostMapping("/users")
-    public User addUser(@RequestBody User user){
-        return userService.addUser(user);
+    public Result addUser(@Valid @RequestBody User user){
+        user = userService.addUser(user);
+        Result result=new Result(200,"success",user);
+        return result;
     }
 
     @PutMapping("/users/{id}")
-    public User updateUser(@PathVariable Integer id, @RequestBody User user){
+    public Result updateUser(@PathVariable Integer id, @RequestBody User user){
         user.setId(id);
-        return userService.updateUser(user);
+        user = userService.updateUser(user);
+        Result result=new Result(200,"success",user);
+        return result;
     }
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable Integer id) {
+    public Result deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
+        return new Result(200,"success",null);
     }
 
 }

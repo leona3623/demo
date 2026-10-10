@@ -11,6 +11,14 @@ Content-Type: application/json
   "name": "小明",
   "age": 20
 }
+### 新增错误用户
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "",
+  "age": -10
+}
 ### 修改用户
 PUT http://localhost:8080/users/5
 Content-Type: application/json

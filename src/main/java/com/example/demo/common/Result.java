@@ -1,5 +1,7 @@
 package com.example.demo.common;
 
+import java.util.HashMap;
+
 public class Result {
     private Integer code;
     private String message;
@@ -12,6 +14,10 @@ public class Result {
         this.code = code;
         this.message = message;
         this.data = data;
+    }
+
+    public static Result error(Integer code, String message, Object data) {
+        return new Result(code,message,data);
     }
 
     public Integer getCode() {
