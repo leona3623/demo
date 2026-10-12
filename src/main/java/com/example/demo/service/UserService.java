@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.cache.UserCache;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -11,13 +12,17 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
+    private final UserCache userCache;
+    public UserService(UserRepository userRepository, UserCache userCache) {
         this.userRepository = userRepository;
+        this.userCache = userCache;
     }
 
     public User getUserById(Integer id) {
-        User user = userRepository.findById(id).orElse(null);
+        User user = userCache.getOrNull(id);
+        if(user != null) return user;
+        user = userRepository.findById(id).orElse(null);
+        if(user != null) userCache.addCache(id,user);
         if(user == null){
             throw new UserNotFoundException("用户不存在，id:"+id);
         }
